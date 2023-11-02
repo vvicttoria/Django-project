@@ -1,0 +1,26 @@
+name: Build and Push Docker Image to ECR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to AWS ECR
+        run: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 637224464501.dkr.ecr.eu-central-1.amazonaws.com
+
+      - name: Build Docker image
+        run: docker build -t my-django-app .
+
+      - name: Tag Docker image
+        run: docker tag my-django-app 637224464501.dkr.ecr.eu-central-1.amazonaws.com/my-django-app:latest
+
+      - name: Push Docker image to ECR
+        run: docker push 637224464501.dkr.ecr.eu-central-1.amazonaws.com/my-django-app:latest
