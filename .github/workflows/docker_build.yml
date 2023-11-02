@@ -20,7 +20,7 @@ jobs:
       run: docker buildx build --file Dockerfile --tag your-dockerhub-username/your-image-name:latest .
 
     - name: Log in to Docker Hub
-      run: docker login -u vvicttoria -p vict0r1a2003
+      run: docker login -u DOCKERHUB_USERNAME -p DOCKERHUB_PASSWORD
 
     - name: Push Docker image to Docker Hub
       run: docker buildx build --push --tag your-dockerhub-username/your-image-name:latest .
